@@ -8,9 +8,10 @@ export class Customer {
   address: string;
   appUser: AppUser;
   isActive!: boolean;
+  isAccept!: boolean;
 
 
-  constructor(id: number, name: string, phoneNumber: string, avatar: string, address: string, appUser: AppUser, isActive: boolean) {
+  constructor(id: number, name: string, phoneNumber: string, avatar: string, address: string, appUser: AppUser, isActive: boolean,isAccept: boolean) {
     this.id = id;
     this.name = name;
     this.phoneNumber = phoneNumber;
@@ -18,5 +19,6 @@ export class Customer {
     this.address = address;
     this.appUser = appUser;
     this.isActive = isActive;
+    this.isAccept = isAccept;
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AdminService} from "../../service/admin.service";
 import {Merchant} from "../../model/merchant";
 import {Customer} from "../../model/customer";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -15,14 +16,16 @@ export class AdminComponent implements OnInit {
   merchantsAccept!: Merchant[];
   customers!: Customer[];
   customersAccept!: Customer[];
-
-  constructor(private adminService: AdminService) { }
+  i = 0
+  constructor(private adminService: AdminService,
+              private router: Router) { }
 
   ngOnInit() {
       this.showActiveMerchant()
       this.getWaitingAcceptMerchant()
       this.showActiveCustomer()
       this.getWaitingAcceptCustomer()
+// this.count()
   }
   showActiveMerchant() {
     this.adminService.showActiveMerchant().subscribe(data => {
@@ -80,4 +83,12 @@ export class AdminComponent implements OnInit {
       console.log(error)
     })
   }
+
+  // count(){
+  //   for (let i = 0; i < this.merchants.length; i++) {
+  //     let a = this.merchants.length
+  //     console.log(a)
+  //   }
+  //
+  // }
 }
