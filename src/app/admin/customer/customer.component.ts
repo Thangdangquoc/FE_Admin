@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Merchant} from "../../model/merchant";
 import {Customer} from "../../model/customer";
 import {AdminService} from "../../service/admin.service";
 import {Router} from "@angular/router";

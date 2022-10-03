@@ -7,6 +7,9 @@ import {AdminComponent} from "./admin/home/admin.component";
 import {HttpClientModule} from "@angular/common/http";
 import {MerchantComponent} from "./admin/merchant/merchant.component";
 import { CustomerComponent } from './admin/customer/customer.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterMerchantComponent } from './auth/register-merchant/register-merchant.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -14,12 +17,19 @@ import { CustomerComponent } from './admin/customer/customer.component';
         AppComponent,
         AdminComponent,
         MerchantComponent,
-        CustomerComponent
+        CustomerComponent,
+        LoginComponent,
+        RegisterMerchantComponent
     ],
   imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    // AngularFireStorageModule,
+    // AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
+    // RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
