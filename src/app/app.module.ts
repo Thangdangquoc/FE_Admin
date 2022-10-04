@@ -10,21 +10,28 @@ import { CustomerComponent } from './admin/customer/customer.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterMerchantComponent } from './auth/register-merchant/register-merchant.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {RouterModule} from "@angular/router";
-import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+
 import {AngularFireModule} from "@angular/fire/compat";
 import {environment} from "../environments/environment";
+import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+import {RouterModule} from "@angular/router";
+import {HomeComponent} from "./merchant/merchanthome/home.component";
+import {BillComponent} from "./merchant/bill/bill.component";
+import {OrderComponent} from "./merchant/order/order.component";
 
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        AdminComponent,
-        MerchantComponent,
-        CustomerComponent,
-        LoginComponent,
-        RegisterMerchantComponent
-    ],
+  declarations: [
+    AppComponent,
+    AdminComponent,
+    MerchantComponent,
+    CustomerComponent,
+    LoginComponent,
+    RegisterMerchantComponent,
+    HomeComponent,
+    BillComponent,
+    OrderComponent
+  ],
   imports: [
     ReactiveFormsModule,
     FormsModule,

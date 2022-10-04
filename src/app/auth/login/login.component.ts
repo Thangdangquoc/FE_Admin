@@ -32,15 +32,17 @@ export class LoginComponent implements OnInit {
       password: this.formLogin.value.password,
 
     };
+
     console.log(this.user);
     this.loginService.login(this.user).subscribe((data:UserToken) =>{
+      alert("hello")
       this.userToken = data;
       console.log(this.userToken);
       if (this.userToken!=null){
         this.currentId = data.id;
         console.log(this.currentId);
-        // @ts-ignore
-        localStorage.setItem("currentId",this.currentId);
+
+        localStorage.setItem("currentId",String(this.currentId));
 
         if (this.userToken.roles[0].name == "ROLE_CUSTOMER" ){
           this.router.navigate(["/customer"]);
@@ -49,7 +51,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/admin"]);
           console.log("ROLE_ADMIN")
         }else if (this.userToken.roles[0].name == "ROLE_MERCHANT"){
-          this.router.navigate(["/merchant"]);
+          this.router.navigate(["/home-merchant"]);
           console.log("ROLE_MERCHANT")
         }
       }

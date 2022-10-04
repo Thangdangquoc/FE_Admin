@@ -5,6 +5,10 @@ import {CustomerComponent} from "./admin/customer/customer.component";
 import {MerchantComponent} from "./admin/merchant/merchant.component";
 import {RegisterMerchantComponent} from "./auth/register-merchant/register-merchant.component";
 import {LoginComponent} from "./auth/login/login.component";
+import {HomeComponent} from "./merchant/merchanthome/home.component";
+import {BillComponent} from "./merchant/bill/bill.component";
+import {OrderComponent} from "./merchant/order/order.component";
+
 
 const routes: Routes = [
   {
@@ -26,6 +30,18 @@ const routes: Routes = [
   {
     path: 'merchant',
     component: MerchantComponent
+  },
+  {
+    path: 'home-merchant',
+    component: HomeComponent
+  },
+  {
+    path:'bill',
+    component: BillComponent
+  },
+  {
+    path:'order',
+    component: OrderComponent
   }
 ];
 

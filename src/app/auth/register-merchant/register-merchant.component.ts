@@ -110,7 +110,7 @@ export class RegisterMerchantComponent implements OnInit {
           }
         ]
       },
-      isAccept: true,
+      isAccept: false,
       isActive: true
     };
     console.log(this.merchant);

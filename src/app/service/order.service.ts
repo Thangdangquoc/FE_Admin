@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Merchant} from "../model/merchant";
-import {Customer} from "../model/customer";
 import {Observable} from "rxjs";
-import {OrderDetail} from "../model/orderdetail";
 import {Order} from "../model/order";
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,11 +23,9 @@ export class OrderService {
     return this.httpClient.post<Order>("http://localhost:8080/customers/orders/save-order",order);
   }
 
-  saveOrderDetail(orderDetail: OrderDetail): Observable<OrderDetail>{
-    return this.httpClient.post<OrderDetail>("http://localhost:8080/customers/orders/save-orderDetail",orderDetail);
-  }
 
-  findOrdersByCustomerId(idCustomer: number): Observable<Order[]>{
+// tim tat ca order thuoc merchant
+  findOrdersByMerchantId(idCustomer: number): Observable<Order[]>{
     return this.httpClient.get<Order[]>("http://localhost:8080/api/order/find-orders-by-user-id/" + idCustomer);
   }
   acceptOrder(id: number){
