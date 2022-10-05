@@ -19,11 +19,13 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link " routerLink="/customer">
+        <a class="nav-link ">
           <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
             <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
           </div>
-          <span class="nav-link-text ms-1">Create</span>
+          <p data-bs-toggle="modal" data-bs-target="#myModal">
+            <span class="nav-link-text ms-1">Create</span>
+          </p>
         </a>
       </li>
       <li class="nav-item">
@@ -89,7 +91,7 @@
         </div>
         <ul class="navbar-nav  justify-content-end">
           <li class="nav-item d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+            <a href="javascript:;" class="nav-link text-white font-weight-bold px-0" (click)="logout()">
               <i class="fa fa-user me-sm-1"></i>
               <span class="d-sm-inline d-none">Logout</span>
             </a>
@@ -375,8 +377,8 @@
     <thead>
     <tr>
       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Address</th>
-      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone Number</th>
+      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
       <th class="text-secondary opacity-7"></th>
     </tr>
     </thead>
@@ -386,7 +388,10 @@
       <td>
         <div class="d-flex px-2 py-1">
           <div>
-            <img src="./assets/assets/img/team-4.jpg" class="avatar avatar-sm me-3" alt="user6">
+            <p data-bs-toggle="modal" data-bs-target="#myModal1" (click)="detailFood(f.id)">
+
+              <img [src]="f.image" class="avatar avatar-sm me-3" alt="user6" >
+            </p>
           </div>
           <div class="d-flex flex-column justify-content-center">
             <h6 class="mb-0 text-sm">{{f.name}}</h6>
@@ -398,8 +403,8 @@
 
         <p class="text-xs text-secondary mb-0">{{f.price}}</p>
       </td>
-      <td class="align-middle text-center text-sm">
-        <span class="badge badge-sm bg-gradient-secondary">{{f.description}}</span>
+      <td class="align-middle text-center text-sm"  data-bs-toggle="modal" data-bs-target="#myModal2" (click)="getFoodToUpdateFood(f.id)">
+        <span class="badge badge-sm bg-gradient-secondary">Edit</span>
       </td>
       <td style="text-align: center; width: 15%" *ngIf="f?.isEmpty === true"><span class="status text-success"  >&bull;</span> Active</td>
       <td style="text-align: center; width: 15%" *ngIf="f?.isEmpty == false"><span class="status text-warning"  >&bull;</span> Inactive</td>
@@ -483,3 +488,164 @@
     </div>
   </div>
 </div>
+
+
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Create Food</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <a><i class="btn-close" data-dismiss="modal" #closeBtn></i></a>
+      </div>
+
+      <!-- Modal body -->
+      <form  [formGroup]="formCreateFood" (ngSubmit)="createFood()" id="form-create">
+        <div class="mb-3 mt-3">
+          <label for="name">Name:</label>
+          <input type="text" class="form-control" id="name" placeholder="Enter name" name="name" formControlName="name">
+        </div>
+        <div class="mb-3">
+          <label for="description">Description:</label>
+          <input type="text" class="form-control" id="description" placeholder="Enter description" name="description" formControlName="description">
+        </div>
+        <div class="mb-3">
+          <label for="price">price:</label>
+          <input type="text" class="form-control" id="price" placeholder="Enter price" name="address" formControlName="price">
+        </div>
+        <div class="mb-3">
+          <label for="quantityStorage">quantityStorage:</label>
+          <input type="text" class="form-control" id="quantityStorage" placeholder="Enter quantityStorage" name="address" formControlName="quantityStorage">
+        </div>
+        <div class="mb-3">
+          <label for="image">Image:</label>
+          <input type="file" class="form-control" id="image"  name="image" formControlName="image"  #uploadFile (change)="UploadFileImg()">
+        </div>
+        <div>
+          <img [src]=""style="width: 30%; height: 30%">
+        </div>
+        <div class="mb-3">
+          <label>foodCategory:</label>
+          <label>
+            <select formControlName = "foodCategory" (click)="findCategoryById()" >
+              <option *ngFor="let c of listCategory" [value]="c.id">
+                {{c.nameCategory}}
+              </option>
+            </select>
+          </label>
+        </div>
+        <div class="modal-footer">
+          <div  *ngIf="url !=null" >
+            <button class="btn btn-primary" id="success" >Submit</button>
+          </div>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal" id="myModal1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Detail Food</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <form action="/action_page.php" [formGroup]="formDetailFood"   id="form-create1">
+        <div class="mb-3 mt-3">
+          <label for="name">Name:</label>
+          <input type="text" class="form-control" id="name1" placeholder="Enter name" name="name" formControlName="name" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="description">Description:</label>
+          <input type="text" class="form-control" id="description1" placeholder="Enter description" name="description" formControlName="description" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="price">price:</label>
+          <input type="text" class="form-control" id="price1" placeholder="Enter price" name="address" formControlName="price" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="quantityStorage">quantityStorage:</label>
+          <input type="text" class="form-control" id="quantityStorage1" placeholder="Enter quantityStorage" name="address" formControlName="quantityStorage" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="image">Image:</label>
+          <img [src]="foodDetailImage" alt="" style="width: 30%; height: 30%">>
+        </div>
+        <div class="mb-3">
+          <label for="foodCategory">foodCategory:</label>
+          <input  type="text" class="form-control" id="foodCategory" placeholder="Enter foodCategory" name="foodCategory" formControlName="foodCategory" readonly>
+        </div>
+
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<form [formGroup]="formUpdateFood" (ngSubmit)="updateFood()">
+  <div class="modal" id="myModal2">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Update Food</h4>
+
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <label>Name</label>
+          <input type="text" class="form-control" id="name2" placeholder="Enter name" name="name" formControlName="name">
+
+          <label>Price</label>
+          <input type="text" class="form-control" id="price2" placeholder="Enter price" name="address" formControlName="price">
+
+          <label>quantityStorage</label>
+          <input type="text" class="form-control" id="quantityStorage2" placeholder="Enter quantityStorage" name="address" formControlName="quantityStorage">
+
+
+          <label>Description</label>
+          <textarea  type="text" class="form-control" id="description2" placeholder="Enter description" name="description" formControlName="description"></textarea>
+
+          <label>image</label>
+          <input type="file" class="form-control" id="image2"  name="image" formControlName="image"  #uploadFile2 (change)="UploadFileImg2()">
+          <div>
+            <img *ngIf="!arrayPicture2" [src]="arrayPicture"style="width: 30%; height: 30%">
+            <img *ngIf="arrayPicture2" [src]="arrayPicture2"style="width: 30%; height: 30%" >
+          </div>
+          <label>foodCategory:</label>
+          <label>
+            <select formControlName = "foodCategory" (click)="findCategoryById()" >
+              <option *ngFor="let c of listCategory" [value]="c.id">
+                {{c.nameCategory}}
+              </option>
+            </select>
+          </label>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button class="btn btn-success">Update</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</form>
+
+
