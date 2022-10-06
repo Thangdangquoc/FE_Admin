@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {Merchant} from "../../model/merchant";
 import {Customer} from "../../model/customer";
 import {AdminService} from "../../service/admin.service";
+import {Router} from "@angular/router";
+import {Food} from "../../model/food";
+import {MerchantService} from "../../service/merchant.service";
 
 @Component({
   selector: 'app-merchant',
@@ -14,15 +17,20 @@ export class MerchantComponent implements OnInit {
   merchantsAccept!: Merchant[];
   customers!: Customer[];
   customersAccept!: Customer[];
-
-  constructor(private adminService: AdminService) {
+  listFoodBylikeName!: Food[];
+  constructor(private adminService: AdminService,
+              private router: Router,
+              private merchantService: MerchantService) {
   }
 
   ngOnInit(): void {
     this.showActiveMerchant()
     this.getWaitingAcceptMerchant()
   }
-
+  logout() {
+    localStorage.clear();
+    this.router.navigate(["/"]);
+  }
   showActiveMerchant() {
     this.adminService.showActiveMerchant().subscribe(data => {
       this.merchants = data
@@ -51,5 +59,6 @@ export class MerchantComponent implements OnInit {
       console.log(error)
     })
   }
+
 }
 

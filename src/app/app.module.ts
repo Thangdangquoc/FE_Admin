@@ -18,6 +18,9 @@ import {RouterModule} from "@angular/router";
 import {HomeComponent} from "./merchant/merchanthome/home.component";
 import {BillComponent} from "./merchant/bill/bill.component";
 import {OrderComponent} from "./merchant/order/order.component";
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 
 
 @NgModule({
@@ -39,6 +42,8 @@ import {OrderComponent} from "./merchant/order/order.component";
     BrowserModule,
     AppRoutingModule,
     AngularFireStorageModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig, "cloud"),
     RouterModule
   ],

@@ -4,6 +4,7 @@ import {AppUser} from "../../model/appuser";
 import {FormControl, FormGroup, Validator, Validators} from "@angular/forms";
 import {LoginService} from "../../service/login.service";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   user?: any;
   formLogin!: FormGroup;
   constructor(private loginService: LoginService,
-              private router: Router) { }
+              private router: Router,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.formLogin = new FormGroup({
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
       password: this.formLogin.value.password,
 
     };
-
+    this.toastr.success("Login Success")
     console.log(this.user);
     this.loginService.login(this.user).subscribe((data:UserToken) =>{
       alert("hello")
@@ -43,7 +45,7 @@ export class LoginComponent implements OnInit {
         console.log(this.currentId);
 
         localStorage.setItem("currentId",String(this.currentId));
-
+        localStorage.setItem("admin",String(this.user.username));
         if (this.userToken.roles[0].name == "ROLE_CUSTOMER" ){
           this.router.navigate(["/customer"]);
           console.log("ROLE_CUSTOMER")
@@ -56,6 +58,7 @@ export class LoginComponent implements OnInit {
         }
       }
     })
+
   }
   get username() {
     return this.formLogin.get('username');

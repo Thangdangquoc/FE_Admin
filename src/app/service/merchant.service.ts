@@ -43,6 +43,8 @@ export class MerchantService {
   updateFood(food: any): Observable<any>{
     return this.httpClient.put<any>("http://localhost:8080/api/merchant" , food);
   }
-
+ findFoodByLikeName(name: string): Observable<Food[]>{
+    return this.httpClient.get<Food[]>("http://localhost:8080/api/merchant/find-food-like-name/" + name)
+ }
 
 }

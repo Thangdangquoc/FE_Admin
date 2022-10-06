@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {FoodCategory} from "../../model/foodcategory";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
-import {finalize} from "rxjs/operators";
+import {count, finalize} from "rxjs/operators";
 
 @Component({
   selector: 'app-home',
@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
    formDetailFood!: FormGroup;
    id: any;
    foodDetailImage!: string;
+   admin!: string;
   @ViewChild('closeBtn') closeBtn: ElementRef | undefined;
 
   @ViewChild('uploadFile',{static: true})
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit {
   idUpdate!: any;
   url= ""
   idC: any;
+  countFood!:any;
 
   @ViewChild('uploadFile2',{static: true})
   public avatarDom2: ElementRef | undefined;
@@ -41,6 +43,8 @@ export class HomeComponent implements OnInit {
               private router: Router,
               private storage: AngularFireStorage) {
     this.id = localStorage.getItem("currentId")
+    // @ts-ignore
+    this.admin = localStorage.getItem("admin")
   }
 
   ngOnInit(): void {
@@ -84,10 +88,14 @@ export class HomeComponent implements OnInit {
 
 
   }
+
+
  getFoodByMerchantId(id:any){
     id = this.id
     this.merchantService.getFoodByMerchantId(id).subscribe(data =>{
       this.listFood = data
+      this.countFood = data.length
+      console.log(this.countFood)
       console.log(this.listFood)
     })
  }
@@ -129,6 +137,7 @@ export class HomeComponent implements OnInit {
     this.merchantService.createFood(food).subscribe((data) => {
         console.log(data);
       this.ngOnInit();
+      document.getElementById("sidenav-main")!.style.display = "block"
       // I want to do something like $('#myModal').modal('hide'); here.
 
       // this.closeModal();
@@ -252,4 +261,16 @@ export class HomeComponent implements OnInit {
   //   // @ts-ignore
   //   this.closeBtn.nativeElement.click();
   // }
+  change() {
+    console.log("test")
+    document.getElementById("sidenav-main")!.style.display = "none"
+  }
+  changeSile(){
+    document.getElementById("sidenav-main")!.style.display = "block"
+  }
+  findFoodByLikeName(name: string){
+    this.merchantService.findFoodByLikeName(name).subscribe(data=>{
+      this.listFood = data
+    })
+  }
 }

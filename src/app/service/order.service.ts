@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Order} from "../model/order";
+import {Bill} from "../model/bill";
 
 
 @Injectable({
@@ -42,5 +43,8 @@ export class OrderService {
   delete(id:number): Observable<Order>{
     // @ts-ignore
     return this.httpClient.delete(this.API + `/delete-order/${id}`)
+  }
+  findBillsByMerchantId(id: number): Observable<Bill[]>{
+    return this.httpClient.get<Bill[]>("http://localhost:8080/api/order/find-bill-by-user-id/" + id);
   }
 }

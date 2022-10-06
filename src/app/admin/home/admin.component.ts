@@ -17,8 +17,12 @@ export class AdminComponent implements OnInit {
   customers!: Customer[];
   customersAccept!: Customer[];
   i = 0
+  admin!: string;
   constructor(private adminService: AdminService,
-              private router: Router) { }
+              private router: Router) {
+   // @ts-ignore
+    this.admin = localStorage.getItem("admin");
+  }
 
   ngOnInit() {
       this.showActiveMerchant()

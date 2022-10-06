@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Order} from "../../model/order";
 import {OrderService} from "../../service/order.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-order',
@@ -11,7 +12,8 @@ export class OrderComponent implements OnInit {
    listOrder!: Order[];
    id: any
    status: string = "done";
-  constructor(private orderService: OrderService) {
+  constructor(private orderService: OrderService,
+              private router: Router) {
     this.id = localStorage.getItem("currentId")
   }
 
@@ -28,6 +30,7 @@ export class OrderComponent implements OnInit {
   acceptOrder(id: any) {
     this.orderService.acceptOrder(id).subscribe(data => {
       this.ngOnInit()
+      document.getElementById("order")!.style.display = "none"
     }, error => {
       console.log(error)
     })
@@ -38,4 +41,10 @@ export class OrderComponent implements OnInit {
      })
 
   }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(["/"]);
+  }
+
 }
