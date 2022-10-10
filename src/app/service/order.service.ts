@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Order} from "../model/order";
 import {Bill} from "../model/bill";
+import {OrderDetail} from "../model/orderdetail";
 
 
 @Injectable({
@@ -46,5 +47,14 @@ export class OrderService {
   }
   findBillsByMerchantId(id: number): Observable<Bill[]>{
     return this.httpClient.get<Bill[]>("http://localhost:8080/api/order/find-bill-by-user-id/" + id);
+  }
+  findOrderByNameCustomer(id: any, name: string): Observable<Order[]>{
+    return this.httpClient.get<Order[]>("http://localhost:8080/api/merchant/find-order-by-name/"+ id+"/"+name)
+  }
+  findOrderDetailByCustomerName(id: any, name: string): Observable<OrderDetail[]>{
+    return this.httpClient.get<OrderDetail[]>("http://localhost:8080/api/merchant/find-order-detail-by-name-customer/"+ id+"/"+name)
+  }
+  findOrderDetaiByUserId(id: any): Observable<OrderDetail[]>{
+    return this.httpClient.get<OrderDetail[]>("http://localhost:8080/api/merchant/find-order-detail-by-user-id/" + id)
   }
 }

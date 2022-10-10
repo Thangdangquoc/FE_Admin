@@ -13,11 +13,14 @@ import {Router} from "@angular/router";
 export class AdminComponent implements OnInit {
   p: any;
   merchants !: Merchant[];
+  merchant !: Merchant;
   merchantsAccept!: Merchant[];
   customers!: Customer[];
   customersAccept!: Customer[];
   i = 0
   admin!: string;
+  countCustomer: any;
+  countMerchant: any;
   constructor(private adminService: AdminService,
               private router: Router) {
    // @ts-ignore
@@ -35,6 +38,7 @@ export class AdminComponent implements OnInit {
     this.adminService.showActiveMerchant().subscribe(data => {
       this.merchants = data
       console.log(data)
+      this.countMerchant = data.length;
     })
 
   }
@@ -64,6 +68,7 @@ export class AdminComponent implements OnInit {
     this.adminService.showCustomerList().subscribe(customer => {
       this.customers = customer
       console.log(customer)
+      this.countCustomer = customer.length;
     })
   }
   getWaitingAcceptCustomer(){
@@ -71,13 +76,6 @@ export class AdminComponent implements OnInit {
       this.customersAccept = customerA
       console.log(customerA)
     })
-  }
-  controlCustomer(id: number) {
-    this.adminService.controlCustomer(id).subscribe(data => {
-      this.showActiveCustomer();
-      // this.router.navigate(['/admin']);
-
-    }, e => console.log(e));
   }
   acceptCustomer(id: any) {
     this.adminService.acceptCustomer(id).subscribe(data => {
@@ -88,15 +86,14 @@ export class AdminComponent implements OnInit {
     })
   }
 
-  // count(){
-  //   for (let i = 0; i < this.merchants.length; i++) {
-  //     let a = this.merchants.length
-  //     console.log(a)
-  //   }
-  //
-  // }
   logout() {
     localStorage.clear();
     this.router.navigate(["/"]);
+  }
+  findMerchantByPhone(phone : string){
+    this.adminService.findMerchantByPhoneNumber(phone).subscribe(data =>{
+      this.merchants = data
+      console.log(this.merchants)
+    })
   }
 }

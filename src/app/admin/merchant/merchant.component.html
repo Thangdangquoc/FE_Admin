@@ -57,7 +57,7 @@
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           <div class="input-group">
             <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" placeholder="Type here...">
+            <input type="text" class="form-control" #find (input)="findMerchantByPhone(find.value)">
           </div>
         </div>
         <ul class="navbar-nav  justify-content-end">
@@ -183,7 +183,7 @@
                   <td>
                     <div class="d-flex px-2 py-1">
                       <div>
-                        <img [src]="m.avatar" class="avatar avatar-sm me-3" alt="user6">
+                        <img [src]="m.avatar"  data-bs-toggle="modal" data-bs-target="#myModal1" (click)="detailMerchant(m.id)" class="avatar avatar-sm me-3" alt="user6">
                       </div>
                       <div class="d-flex flex-column justify-content-center">
                         <h6 class="mb-0 text-sm">{{m.name}}</h6>
@@ -201,7 +201,7 @@
                   <td style="text-align: center" *ngIf="m?.isActive === true"><span class="status text-success"  >&bull;</span> Active</td>
                   <td style="text-align: center" *ngIf="m?.isActive == false"><span class="status text-warning"  >&bull;</span> Inactive</td>
                   <div style="display: flex;justify-content: center;align-items: center;height: 64.5px">
-                    <button type="button" class="btn btn-primary" *ngIf="m?.isActive == true" (click)="controlMerchant(m.id)">BAN ACC</button>
+                    <button type="button" class="btn btn-primary" *ngIf="m?.isActive == true" (click)="controlMerchant(m.id)">BAN</button>
                     <button type="button" class="btn btn-warning"  *ngIf="m?.isActive === false" (click)="controlMerchant(m.id)">ACTIVE</button>
                   </div>
                 </tr>
@@ -284,6 +284,45 @@
           <i class="fab fa-facebook-square me-1" aria-hidden="true"></i> Share
         </a>
       </div>
+    </div>
+  </div>
+</div>
+<div class="modal" id="myModal1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Detail Merchant</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <form action="/action_page.php" [formGroup]="merchantDetailForm" id="form-create1">
+        <div class="mb-3 mt-3">
+          <label for="name1">Name:</label>
+          <input type="text" class="form-control" id="name1" placeholder="Enter Name" name="name1" formControlName="name"
+                 readonly>
+        </div>
+        <div class="mb-3">
+          <label for="description1">Phone:</label>
+          <input type="text" class="form-control" id="description1" placeholder="Enter Description" name="description1"
+                 formControlName="phoneNumber" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="price1">Address:</label>
+          <input type="text" class="form-control" id="price1" placeholder="Enter Price" name="address"
+                 formControlName="address" readonly>
+        </div>
+
+        <div class="mb-3">
+          <label>Image:</label>
+          <img [src]="avatar" alt="" style="width: 30%; height: 30%">
+        </div>
+<!--        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"  (click)="changeSile()">Close</button>-->
+
+      </form>
+
     </div>
   </div>
 </div>

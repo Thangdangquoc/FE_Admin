@@ -5,6 +5,7 @@ import {FormControl, FormGroup, Validator, Validators} from "@angular/forms";
 import {LoginService} from "../../service/login.service";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -32,12 +33,10 @@ export class LoginComponent implements OnInit {
     this.user = {
       username: this.formLogin.value.username,
       password: this.formLogin.value.password,
-
     };
-    this.toastr.success("Login Success")
+    // this.toastr.success("Login Success")
     console.log(this.user);
     this.loginService.login(this.user).subscribe((data:UserToken) =>{
-      alert("hello")
       this.userToken = data;
       console.log(this.userToken);
       if (this.userToken!=null){
@@ -45,15 +44,19 @@ export class LoginComponent implements OnInit {
         console.log(this.currentId);
 
         localStorage.setItem("currentId",String(this.currentId));
+
         localStorage.setItem("admin",String(this.user.username));
         if (this.userToken.roles[0].name == "ROLE_CUSTOMER" ){
+          this.loginSusess()
           this.router.navigate(["/customer"]);
           console.log("ROLE_CUSTOMER")
         }else if (this.userToken.roles[0].name == "ROLE_ADMIN"){
+          this.loginSusess()
           this.router.navigate(["/admin"]);
           console.log("ROLE_ADMIN")
         }else if (this.userToken.roles[0].name == "ROLE_MERCHANT"){
-          this.router.navigate(["/home-merchant"]);
+          this.loginSusess()
+          this.router.navigate(["/order"]);
           console.log("ROLE_MERCHANT")
         }
       }
@@ -68,4 +71,13 @@ export class LoginComponent implements OnInit {
     return this.formLogin.get('password');
   }
 
+  loginSusess(){
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Login successfully',
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
 }

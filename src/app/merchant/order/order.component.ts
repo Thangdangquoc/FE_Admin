@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Order} from "../../model/order";
 import {OrderService} from "../../service/order.service";
 import {Router} from "@angular/router";
+import {OrderDetail} from "../../model/orderdetail";
 
 @Component({
   selector: 'app-order',
@@ -9,24 +10,30 @@ import {Router} from "@angular/router";
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-   listOrder!: Order[];
-   id: any
-   status: string = "done";
+  listOrder!: Order[];
+  id: any
+  status: string = "done";
+  countOrder: any;
+   listOrderDetail!: OrderDetail[];
   constructor(private orderService: OrderService,
               private router: Router) {
     this.id = localStorage.getItem("currentId")
   }
 
   ngOnInit(): void {
-     this.getOrderByMerchantId(this.id)
+    this.getOrderByMerchantId(this.id)
+
   }
-  getOrderByMerchantId(id:any){
+
+  getOrderByMerchantId(id: any) {
     id = this.id
-    this.orderService.findOrdersByMerchantId(id).subscribe(data =>{
+    this.orderService.findOrdersByMerchantId(id).subscribe(data => {
       this.listOrder = data
+      this.countOrder = data.length;
       console.log(this.listOrder)
     })
   }
+
   acceptOrder(id: any) {
     this.orderService.acceptOrder(id).subscribe(data => {
       this.ngOnInit()
@@ -35,10 +42,11 @@ export class OrderComponent implements OnInit {
       console.log(error)
     })
   }
-  deleteOrder(id: number){
-     this.orderService.delete(id).subscribe(data =>{
-       this.ngOnInit()
-     })
+
+  deleteOrder(id: number) {
+    this.orderService.delete(id).subscribe(data => {
+      this.ngOnInit()
+    })
 
   }
 
@@ -47,4 +55,19 @@ export class OrderComponent implements OnInit {
     this.router.navigate(["/"]);
   }
 
+  findOrderByCustomerName(name: string) {
+    if (name != null) {
+      this.orderService.findOrderByNameCustomer(this.id, name).subscribe(data => {
+        this.listOrder = data
+      })
+    }
+    if (name == "") {
+      this.getOrderByMerchantId(this.id)
+    }
+  }
+  findOrderDetailByUserId(){
+    this.orderService.findOrderDetaiByUserId(this.id).subscribe(data =>{
+      this.listOrderDetail = data
+    })
+  }
 }

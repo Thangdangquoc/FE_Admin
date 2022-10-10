@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Food} from "../model/food";
+import {Merchant} from "../model/merchant";
 
 @Injectable({
   providedIn: 'root'
@@ -56,5 +57,11 @@ export class AdminService {
   }
   findFoodByLikeName(name: string): Observable<Food[]>{
     return this.httpClient.get<Food[]>("http://localhost:8080/api/merchant/find-food-like-name/" + name)
+  }
+  findMerchantByPhoneNumber(phone: string): Observable<Merchant[]>{
+    return this.httpClient.get<Merchant[]>("http://localhost:8080/api/admin/find-merchant-by-phone-number/" + phone)
+  }
+  findMerchantById(id: number): Observable<Merchant>{
+    return this.httpClient.get<Merchant>("http://localhost:8080/api/admin/merchant/" + id);
   }
 }

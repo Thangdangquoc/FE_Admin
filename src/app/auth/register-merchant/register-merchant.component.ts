@@ -117,11 +117,11 @@ export class RegisterMerchantComponent implements OnInit {
     console.log(this.urlBanner);
     if (this.registerMerchantForm.valid) {
       this.loginService.registerMerchant(this.merchant).subscribe((data:any) => {
-        alert("chung toi dang xac nhan")
+        // alert("chung toi dang xac nhan")
         // console.log("data-username" + data);
         if (data) {
-          console.log("data");
-          console.log(data);
+          // console.log("data");
+          // console.log(data);
           alert("chung toi dang xac nhan");
           this.router.navigate(["/"]);
         } else {

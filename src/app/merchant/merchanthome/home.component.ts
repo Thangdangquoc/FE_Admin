@@ -6,6 +6,8 @@ import {FoodCategory} from "../../model/foodcategory";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {count, finalize} from "rxjs/operators";
+import {OrderService} from "../../service/order.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-home',
@@ -13,13 +15,19 @@ import {count, finalize} from "rxjs/operators";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  avatar!: string;
+  imageBanner!: string;
   food!:Food;
   imgURL="";
    listFood!: Food[];
    listCategory!: FoodCategory[];
-  formUpdateFood!: FormGroup;
+   formUpdateFood!: FormGroup;
    formCreateFood!: FormGroup;
    formDetailFood!: FormGroup;
+   formDetailMerchant!: FormGroup;
+   formUpdateMerchant!: FormGroup;
+  countOrder: any;
+
    id: any;
    foodDetailImage!: string;
    admin!: string;
@@ -41,14 +49,17 @@ export class HomeComponent implements OnInit {
   url2= ""
   constructor(private merchantService: MerchantService,
               private router: Router,
-              private storage: AngularFireStorage) {
+              private storage: AngularFireStorage,
+              private orderService: OrderService) {
     this.id = localStorage.getItem("currentId")
     // @ts-ignore
     this.admin = localStorage.getItem("admin")
   }
 
   ngOnInit(): void {
+
     this.getFoodByMerchantId(this.id)
+    this.getOrderByMerchantId(localStorage.getItem("currentId"))
     this.showAllCategory();
     this.formCreateFood = new FormGroup({
       name: new FormControl("", Validators.required),
@@ -57,7 +68,7 @@ export class HomeComponent implements OnInit {
       price: new FormControl("", Validators.required),
       quantityStorage: new FormControl("", Validators.required),
       sold: new FormControl(0),
-      merchant: new FormControl(this.id),
+      merchant: new FormControl(""),
       foodCategory: new FormControl("", Validators.required),
       isEmpty: new FormControl(false),
 
@@ -85,8 +96,14 @@ export class HomeComponent implements OnInit {
       isEmpty: new FormControl(false),
 
     });
-
-
+    this.formDetailMerchant = new FormGroup({
+       name: new FormControl(),
+       phoneNumber: new FormControl(),
+       address: new FormControl(),
+       avatar: new FormControl(),
+       imageBanner: new FormControl(),
+    })
+    this.detailMerchant(this.id)
   }
 
 
@@ -95,7 +112,13 @@ export class HomeComponent implements OnInit {
     this.merchantService.getFoodByMerchantId(id).subscribe(data =>{
       this.listFood = data
       this.countFood = data.length
-      console.log(this.countFood)
+      // for (let i = 0; i < data.length; i++) {
+      //   if (data[i].quantityStorage == 0){
+      //     this.isEmptyFood(data[i].id)
+      //
+      //   }
+      //   break;
+      // }
       console.log(this.listFood)
     })
  }
@@ -118,6 +141,7 @@ export class HomeComponent implements OnInit {
  }
 
   createFood() {
+    console.log(this.formCreateFood.value.foodCategory);
     let food={
     name: this.formCreateFood.value.name,
     image: this.url,
@@ -135,12 +159,15 @@ export class HomeComponent implements OnInit {
     };
     console.log(food);
     this.merchantService.createFood(food).subscribe((data) => {
+      this.createSuccess();
         console.log(data);
       this.ngOnInit();
-      document.getElementById("sidenav-main")!.style.display = "block"
+      document.getElementById("sidenav-main")!.style.display = "block";
+      document.getElementById("resetU")!.click()
       // I want to do something like $('#myModal').modal('hide'); here.
 
       // this.closeModal();
+
     })
 
 
@@ -180,7 +207,7 @@ export class HomeComponent implements OnInit {
         finalize(() => (fileRef.getDownloadURL().subscribe(url => {
               this.arrayPicture2 = url
               this.url2 = this.arrayPicture2;
-              setTimeout(()=>this.url2,2000)
+              setTimeout(()=>this.url2,3000)
               // localStorage.setItem("URL", this.arrayPicture)
             }
           )
@@ -207,7 +234,21 @@ export class HomeComponent implements OnInit {
       })
     })
   }
-
+  detailMerchant(id: any){
+    // id = this.id
+    this.merchantService.detailMerchant(id).subscribe(data =>{
+      this.avatar = data.avatar;
+      this.imageBanner = data.imageBanner
+      this.formDetailMerchant = new FormGroup({
+        name: new FormControl(data.name),
+        phoneNumber: new FormControl(data.phoneNumber),
+        address: new FormControl(data.address),
+        avatar: new FormControl(data.avatar),
+        imageBanner: new FormControl(data.imageBanner),
+      })
+    })
+    console.log(this.formDetailMerchant)
+  }
   getFoodToUpdateFood(id: number) {
     this.merchantService.showFoodDetail(id).subscribe( data=>{
       this.food = data;
@@ -231,7 +272,6 @@ export class HomeComponent implements OnInit {
     if (this.url2==""){
       this.url2= this.imgURL;
     }
-    console.log("anh dday"+this.url2);
     let food={
       id:this.formUpdateFood.value.id,
       name: this.formUpdateFood.value.name,
@@ -250,27 +290,91 @@ export class HomeComponent implements OnInit {
     };
     console.log(food);
     this.merchantService.updateFood(food).subscribe((data) => {
+      this.updateSuccess()
       this.arrayPicture ="";
 
       this.ngOnInit();
+
       // this.closeModal();
     })
   }
+updateMerchant(){
+    let merchant ={
+      appUser : {
+      id: this.id
+      },
+      name: this.formDetailMerchant.value.name,
+      phoneNumber: this.formDetailMerchant.value.phoneNumber,
+      address: this.formDetailMerchant.value.address
 
+    }
+    this.merchantService.updateMerchant(merchant).subscribe(data =>{
+      this.updateMerchantSuccess();
+      this.formDetailMerchant = new FormGroup({
+        name: new FormControl(data.name),
+        phoneNumber: new FormControl(data.phoneNumber),
+        address: new FormControl(data.address),
+      });
+    })
+  console.log(this.formDetailMerchant)
+
+}
   // private closeModal(): void {
   //   // @ts-ignore
   //   this.closeBtn.nativeElement.click();
   // }
   change() {
-    console.log("test")
+    // console.log("test")
     document.getElementById("sidenav-main")!.style.display = "none"
   }
   changeSile(){
     document.getElementById("sidenav-main")!.style.display = "block"
   }
   findFoodByLikeName(name: string){
-    this.merchantService.findFoodByLikeName(name).subscribe(data=>{
-      this.listFood = data
+    // @ts-ignore
+    let id = parseInt(localStorage.getItem("currentId"))
+    if (name != null){
+      this.merchantService.findFoodByLikeName(name,id).subscribe(data=>{
+        this.listFood = data
+      })
+    }if(name == "") {
+      this.getFoodByMerchantId(id)
+    }
+  }
+  getOrderByMerchantId(id:any){
+    id = this.id
+    this.orderService.findOrdersByMerchantId(id).subscribe(data =>{
+      this.countOrder = data.length;
     })
   }
+  clearForm(){
+    document.getElementById("success")!.onreset!.arguments
+  }
+createSuccess(){
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Create Success',
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
+updateSuccess(){
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Update Success',
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
+updateMerchantSuccess(){
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Update Success',
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
 }
