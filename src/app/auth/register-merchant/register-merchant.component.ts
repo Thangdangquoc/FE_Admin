@@ -4,7 +4,7 @@ import {LoginService} from "../../service/login.service";
 import {Router} from "@angular/router";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {finalize} from "rxjs/operators";
-
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-register-merchant',
   templateUrl: './register-merchant.component.html',
@@ -122,20 +122,46 @@ export class RegisterMerchantComponent implements OnInit {
         if (data) {
           // console.log("data");
           // console.log(data);
-          alert("chung toi dang xac nhan");
+         this.registerSuccess()
           this.router.navigate(["/"]);
         } else {
-          alert("email da dc sd");
-          this.router.navigate(["/customer"]);
+         this.emailIsExist()
+          this.router.navigate(["/register"]);
         }
       })
 
     } else {
-      alert("Please checkout form!");
-      this.router.navigate(["/customer"]);
+     this.checkForm()
+      this.router.navigate(["/register"]);
     }
 
   }
 
-
+registerSuccess(){
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Login successfully',
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
+emailIsExist(){
+  Swal.fire({
+    position: 'center',
+    icon: 'warning',
+    title: 'Email is alrealy exist',
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
+checkForm(){
+  Swal.fire({
+    position: 'center',
+    icon: 'warning',
+    title: 'Please check form!',
+    showConfirmButton: false,
+    timer: 1500
+  })
+}
 }

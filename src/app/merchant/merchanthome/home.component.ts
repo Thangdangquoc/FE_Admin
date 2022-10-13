@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
    formDetailFood!: FormGroup;
    formDetailMerchant!: FormGroup;
    formUpdateMerchant!: FormGroup;
+   formDetailOrder!: FormGroup;
   countOrder: any;
 
    id: any;
@@ -57,6 +58,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    document.getElementById("sidenav-main")!.style.display = "block"
 
     this.getFoodByMerchantId(this.id)
     this.getOrderByMerchantId(localStorage.getItem("currentId"))
@@ -104,6 +106,11 @@ export class HomeComponent implements OnInit {
        imageBanner: new FormControl(),
     })
     this.detailMerchant(this.id)
+    this.formDetailOrder = new FormGroup({
+      create_at: new FormControl,
+      price_total : new FormControl,
+
+    })
   }
 
 
@@ -170,6 +177,7 @@ export class HomeComponent implements OnInit {
 
     })
 
+    this.arrayPicture="";
 
   }
 

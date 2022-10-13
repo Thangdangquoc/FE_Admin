@@ -45,6 +45,9 @@ export class OrderService {
     // @ts-ignore
     return this.httpClient.delete(this.API + `/delete-order/${id}`)
   }
+  cancelOrder(id: number):Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8080/api/order/cancel-order/" + id)
+  }
   findBillsByMerchantId(id: number): Observable<Bill[]>{
     return this.httpClient.get<Bill[]>("http://localhost:8080/api/order/find-bill-by-user-id/" + id);
   }
@@ -56,5 +59,14 @@ export class OrderService {
   }
   findOrderDetaiByUserId(id: any): Observable<OrderDetail[]>{
     return this.httpClient.get<OrderDetail[]>("http://localhost:8080/api/merchant/find-order-detail-by-user-id/" + id)
+  }
+  // findOrderById(id: any): Observable<Order>{
+  //   return this.httpClient.get<Order>("http://localhost:8080/api/merchant/order-find-by-id/" + id)
+  // }
+  findAllOrderDetailByOrderId(id:number):Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8080/api/order/find-order-detail-by-order/" + id)
+  }
+  findOrderByDate(from: String,to: String): Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8080/api/order/find-order-create-at-by-customer/" + from + "/" + to)
   }
 }

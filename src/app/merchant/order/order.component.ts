@@ -3,6 +3,7 @@ import {Order} from "../../model/order";
 import {OrderService} from "../../service/order.service";
 import {Router} from "@angular/router";
 import {OrderDetail} from "../../model/orderdetail";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-order',
@@ -10,11 +11,16 @@ import {OrderDetail} from "../../model/orderdetail";
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
+  from!: any;
+  to!: any
   listOrder!: Order[];
+  orderDetails!: OrderDetail[];
+  orderDetailForm!: FormGroup;
   id: any
   status: string = "done";
   countOrder: any;
-   listOrderDetail!: OrderDetail[];
+  listOrderDetail!: OrderDetail[];
+  subtotal = 0;
   constructor(private orderService: OrderService,
               private router: Router) {
     this.id = localStorage.getItem("currentId")
@@ -44,7 +50,7 @@ export class OrderComponent implements OnInit {
   }
 
   deleteOrder(id: number) {
-    this.orderService.delete(id).subscribe(data => {
+    this.orderService.cancelOrder(id).subscribe(data => {
       this.ngOnInit()
     })
 
@@ -68,6 +74,33 @@ export class OrderComponent implements OnInit {
   findOrderDetailByUserId(){
     this.orderService.findOrderDetaiByUserId(this.id).subscribe(data =>{
       this.listOrderDetail = data
+    })
+  }
+
+
+  findAllOrderDetailByOrderId(id:number){
+    this.change()
+    this.orderService.findAllOrderDetailByOrderId(id).subscribe((data:any)=>{
+      // document.getElementById("display_customer")!.style.display="none";
+      // document.getElementById("accepted_table")!.style.display="none";
+      // document.getElementById("waiting_order")!.style.display="none";
+      // document.getElementById("order_detail")!.style.display="block";
+      this.orderDetails = data;
+
+      console.log(this.orderDetails);
+    })
+  }
+  change() {
+    // console.log("test")
+    document.getElementById("sidenav-main")!.style.display = "none"
+  }
+
+  onSlice() {
+    document.getElementById("sidenav-main")!.style.display = "block"
+  }
+  subtotalWithTime(){
+    this.orderService.findOrderByDate(this.from,this.to).subscribe((data:any)=>{
+      this.subtotal= data;
     })
   }
 }

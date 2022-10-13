@@ -59,6 +59,8 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/order"]);
           console.log("ROLE_MERCHANT")
         }
+      } else {
+        this.banAcc()
       }
     })
 
@@ -78,6 +80,15 @@ export class LoginComponent implements OnInit {
       title: 'Login successfully',
       showConfirmButton: false,
       timer: 1500
+    })
+  }
+  banAcc(){
+    Swal.fire({
+      position: 'center',
+      icon: 'info',
+      title: 'The account is not exist or has been locked',
+      showConfirmButton: false,
+      timer: 2000
     })
   }
 }
