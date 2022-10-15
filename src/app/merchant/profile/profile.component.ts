@@ -1,20 +1,20 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Food} from "../../model/food";
-import {MerchantService} from "../../service/merchant.service";
-import {Router} from "@angular/router";
 import {FoodCategory} from "../../model/foodcategory";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MerchantService} from "../../service/merchant.service";
+import {Router} from "@angular/router";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
-import {count, finalize} from "rxjs/operators";
 import {OrderService} from "../../service/order.service";
+import {finalize} from "rxjs/operators";
 import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
-export class HomeComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   avatar!: string;
   imageBanner!: string;
   food!:Food;
@@ -43,6 +43,8 @@ export class HomeComponent implements OnInit {
   idC: any;
   countFood!:any;
   avatarMerchant!:any
+  imageBannerMerchant!:any
+  phoneNumber!:any
 
   @ViewChild('uploadFile2',{static: true})
   public avatarDom2: ElementRef | undefined;
@@ -57,6 +59,8 @@ export class HomeComponent implements OnInit {
     // @ts-ignore
     this.admin = localStorage.getItem("admin")
     this.avatarMerchant = localStorage.getItem("avatarMerchant")
+    this.imageBannerMerchant = localStorage.getItem("imageBanner")
+    this.phoneNumber = localStorage.getItem("phoneNumber")
   }
 
   ngOnInit(): void {
@@ -335,7 +339,7 @@ export class HomeComponent implements OnInit {
       });
     })
     console.log(this.formDetailMerchant)
-
+this.changeSile()
   }
   // private closeModal(): void {
   //   // @ts-ignore

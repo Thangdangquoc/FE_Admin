@@ -1,75 +1,75 @@
 
-<div class="min-height-250 bg-primary position-absolute w-100" ></div>
+<div class="min-height-250 bg-primary position-absolute w-100" style="    margin-top: -26px;"></div>
 
 <aside  id="sidenav-main" style="display: block"  class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 ">
-<div>
-  <div class="sidenav-header"  >
-    <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-       aria-hidden="true" ></i>
-    <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html "
-       target="_blank" >
-      <img src="./assets/assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
-      <span class="ms-1 font-weight-bold">{{admin}} </span>
-    </a>
+  <div>
+    <div class="sidenav-header"  >
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+         aria-hidden="true" ></i>
+      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html "
+         target="_blank" >
+        <img src="{{avatarMerchant}}" class="navbar-brand-img h-100" style="border-radius: 50%;">
+        <span class="ms-1 font-weight-bold">{{admin}} </span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0" >
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/home-merchant">
+            <div
+              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Product Manager</span>
+          </a>
+        </li>
+        <li class="nav-item" (click)="change()">
+          <a class="nav-link " data-bs-toggle="modal" data-bs-target="#myModal">
+            <div
+              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-app text-info text-sm opacity-10"></i>
+            </div>
+              <span class="nav-link-text ms-1"> Create</span>
+
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " routerLink="/order">
+            <div
+              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Order</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " routerLink="/bill">
+            <div
+              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Order Detail</span>
+          </a>
+        </li>
+        <li class="nav-item mt-3">
+          <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+        </li>
+        <li class="nav-item" >
+<!--          <a class="nav-link " [routerLink]="['/profile',id] ">-->
+          <a class="nav-link " routerLink="/profile">
+<!--        <li class="nav-item" (click)="change()">-->
+<!--          <a class="nav-link " data-bs-toggle="modal" data-bs-target="#myModal3">-->
+            <div
+              class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
+            </div>
+              <span class="nav-link-text ms-1">Profile</span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
-  <hr class="horizontal dark mt-0" >
-  <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link active" routerLink="/home-merchant">
-          <div
-            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
-          </div>
-          <span class="nav-link-text ms-1">Product Manager</span>
-        </a>
-      </li>
-      <li class="nav-item" (click)="change()">
-        <a class="nav-link ">
-          <div
-            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
-          </div>
-          <p data-bs-toggle="modal" data-bs-target="#myModal">
-            <span class="nav-link-text ms-1">Create</span>
-          </p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " routerLink="/order">
-          <div
-            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-          </div>
-          <span class="nav-link-text ms-1">Order</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " routerLink="/bill">
-          <div
-            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
-          </div>
-          <span class="nav-link-text ms-1">Order Detail</span>
-        </a>
-      </li>
-      <li class="nav-item mt-3">
-        <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-      </li>
-      <li class="nav-item" (click)="change()">
-        <a class="nav-link ">
-          <div
-            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
-          </div>
-          <p data-bs-toggle="modal" data-bs-target="#myModal3">
-            <span class="nav-link-text ms-1">Profile</span>
-          </p>
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
 </aside>
 <main class="main-content position-relative border-radius-lg ">
   <!-- Navbar -->
@@ -92,7 +92,7 @@
             </a>
           </li>
           <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+            <a href="javascript:" class="nav-link text-white p-0" id="iconNavbarSidenav">
               <div class="sidenav-toggler-inner">
                 <i class="sidenav-toggler-line bg-white"></i>
                 <i class="sidenav-toggler-line bg-white"></i>
@@ -124,11 +124,9 @@
             <div class="row">
               <div class="col-8">
                 <div class="numbers">
-                  <h4 >Food of number</h4>
+                  <h4 class="text-sm mb-0 text-uppercase font-weight-bold">Food of number</h4>
                   <h5 class="font-weight-bolder">
-                    <p>{{countFood}}</p>
-
-                  </h5>
+                    {{countFood}}</h5>
                   <!--                  <p class="mb-0">-->
                   <!--                    <span class="text-success text-sm font-weight-bolder">+55%</span>-->
                   <!--                    since yesterday-->
@@ -150,7 +148,7 @@
             <div class="row">
               <div class="col-8">
                 <div class="numbers">
-                  <h4 >Order of amount</h4>
+                  <h4 class="text-sm mb-0 text-uppercase font-weight-bold">Order of amount</h4>
                   <h5 class="font-weight-bolder">
                     {{countOrder}}
                   </h5>
@@ -226,7 +224,7 @@
     <tr>
       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
-      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sold</th>
       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
       <th class="text-secondary opacity-7"></th>
@@ -253,9 +251,9 @@
 
         <p class="text-xs text-secondary mb-0">{{f.price}}</p>
       </td>
-      <td>
+      <td style="text-align: center;">
 
-        <p class="text-xs text-secondary mb-0">{{f.description}}</p>
+        <p class="text-xs text-secondary mb-0">{{f.sold}}</p>
       </td>
       <td style="text-align: center; width: 15%" *ngIf="f?.isEmpty === true"><span
         class="status text-success">&bull;</span> Active
@@ -383,8 +381,8 @@
         </div>
         <div class="mb-3">
           <label for="description">Description:</label>
-          <input type="text" class="form-control" id="description1" placeholder="Enter Description" name="description"
-                 formControlName="description" readonly>
+          <textarea type="text" class="form-control" id="description1" placeholder="Enter Description" name="description"
+                    formControlName="description" readonly></textarea>
         </div>
         <div class="mb-3">
           <label for="price">Price:</label>
@@ -415,46 +413,53 @@
 </div>
 
 
-  <div class="modal" id="myModal3">
-    <div class="modal-dialog">
-      <div class="modal-content">
+<div class="modal" id="myModal3">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Detail Merchant</h4>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-
-        <!-- Modal body -->
-        <form  [formGroup]="formDetailMerchant"  (click)="detailMerchant(id)">
-          <div class="mb-3 mt-3">
-            <label for="name">Name Food:</label>
-            <input type="text" class="form-control" name="name" formControlName="name">
-          </div>
-          <div class="mb-3">
-            <label for="description">Phone Number:</label>
-            <input type="text" class="form-control"  name="phoneNumber"
-                   formControlName="phoneNumber" >
-          </div>
-          <div class="mb-3">
-            <label for="price">Address:       </label>
-            <input type="text" class="form-control" id="price12" placeholder="Enter Price" name="address"
-                   formControlName="address" >
-          </div>
-          <div class="mb-3">
-            <label for="description">Avatar:</label>
-            <img [src]="avatar" formControlName="avatar"style="width: 30%; height: 30%" >
-          </div>
-          <div class="mb-3">
-            <label for="description">Image Banner:</label>
-            <img [src]="imageBanner" formControlName="imageBanner" style="width: 30%; height: 30%" >
-          </div>
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="changeSile()">Close</button>
-        </form>
-        <button class="btn btn-danger" (click)="updateMerchant()"> Update</button>
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Detail Merchant</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
+
+      <!-- Modal body -->
+      <form  [formGroup]="formDetailMerchant"  (click)="detailMerchant(id)">
+        <div class="mb-3 mt-3">
+          <label for="name">Name Merchant:</label>
+          <input type="text" class="form-control" name="name" formControlName="name">
+        </div>
+        <div class="mb-3">
+          <label for="description">Phone Number:</label>
+          <input type="text" class="form-control"  name="phoneNumber"
+                 formControlName="phoneNumber" >
+        </div>
+        <div class="mb-3">
+          <label for="price">Address:       </label>
+          <input type="text" class="form-control" id="price12" placeholder="Enter Price" name="address"
+                 formControlName="address" >
+        </div>
+        <div class="mb-3">
+          <label for="price">Description:       </label>
+          <textarea type="text" class="form-control" id="price13" placeholder="Enter Description" name="description"
+                    formControlName="description" ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="description">Avatar:</label>
+          <img [src]="avatar" formControlName="avatar"style="width: 30%; height: 30%" >
+        </div>
+        <div class="mb-3">
+          <label for="description">Banner:</label>
+          <img [src]="imageBanner" formControlName="imageBanner" style="width: 30%; height: 30%" >
+        </div>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="changeSile()" style="float: right;
+    margin-right: 10px;" >Close</button>
+        <button class="btn btn-primary" (click)="updateMerchant()" style="margin-left: 317px;"> Update</button>
+      </form>
+
     </div>
   </div>
+</div>
 
 
 
@@ -534,8 +539,8 @@
         </div>
         <div class="mb-3">
           <label for="description">Description:</label>
-          <input type="text" class="form-control" id="description" placeholder="Enter Description" name="description"
-                 formControlName="description">
+          <textarea type="text" class="form-control" id="description" placeholder="Enter Description" name="description"
+                    formControlName="description"></textarea>
         </div>
         <div class="mb-3">
           <label for="price">Price:</label>
@@ -576,5 +581,4 @@
     </div>
   </div>
 </div>
-
 

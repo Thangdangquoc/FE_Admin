@@ -21,14 +21,20 @@ export class OrderComponent implements OnInit {
   countOrder: any;
   listOrderDetail!: OrderDetail[];
   subtotal = 0;
+  avatarMerchant!:any;
+  admin!: string;
+  totalPriceOrder = 0;
   constructor(private orderService: OrderService,
               private router: Router) {
     this.id = localStorage.getItem("currentId")
+    // @ts-ignore
+    this.admin = localStorage.getItem("admin")
+    this.avatarMerchant = localStorage.getItem("avatarMerchant")
   }
 
   ngOnInit(): void {
     this.getOrderByMerchantId(this.id)
-
+    this.totalPrice()
   }
 
   getOrderByMerchantId(id: any) {
@@ -101,6 +107,11 @@ export class OrderComponent implements OnInit {
   subtotalWithTime(){
     this.orderService.findOrderByDate(this.from,this.to).subscribe((data:any)=>{
       this.subtotal= data;
+    })
+  }
+  totalPrice(){
+    this.orderService.totalPrice(this.id).subscribe((data:any)=>{
+      this.totalPriceOrder = data;
     })
   }
 }

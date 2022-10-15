@@ -14,9 +14,14 @@ export class BillComponent implements OnInit {
  id: any;
  listOrderDetail!: OrderDetail[]
   count: any;
+  admin!: string;
+  avatarMerchant!:any
   constructor(private orderService: OrderService,
               private router: Router) {
+    // @ts-ignore
+    this.admin = localStorage.getItem("admin")
     this.id = localStorage.getItem("currentId")
+    this.avatarMerchant = localStorage.getItem("avatarMerchant")
   }
 
   ngOnInit(): void {
