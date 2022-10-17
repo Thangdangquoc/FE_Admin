@@ -16,10 +16,13 @@
               <div class="card-body">
                 <form role="form" [formGroup]="registerMerchantForm" (ngSubmit)="registerMerchant()">
                   <div class="mb-3">
-                    <input type="text" formControlName="name" class="form-control" placeholder="Name" aria-label="Name">
+                    <input type="text" formControlName="name" class="form-control" placeholder="Name Merchant" aria-label="Name">
                   </div>
                   <div class="mb-3">
                     <input type="text" formControlName="phoneNumber" class="form-control" placeholder="PhoneNumber" aria-label="phoneNumber">
+                  </div>
+                  <div class="mb-3">
+                    <textarea type="text" formControlName="description" class="form-control" placeholder="Description" aria-label="description"></textarea>
                   </div>
                   <div class="mb-3">
                     <input type="file"
@@ -79,12 +82,13 @@
             </div>
           </div>
           <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
+            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('../../../assets/baner2.jpg');
           background-size: cover;">
               <span class="mask bg-gradient-primary opacity-6"></span>
-              <h4 class="mt-5 text-white font-weight-bolder position-relative">"Welcome to our food website"</h4>
-              <p class="text-white position-relative">Hope those foods we have here will satisfy your appetite</p>
-              <h5 class="text-white position-relative">It's our honor to serve you</h5>            </div>
+              <h4 style="color: black;margin-top: -600px;">"Welcome to our food website"</h4>
+              <p style="color: black">Hope those foods we have here will satisfy your appetite</p>
+<!--              <h5 class="text-white position-relative">It's our honor to serve you</h5>   -->
+        </div>
           </div>
         </div>
       </div>

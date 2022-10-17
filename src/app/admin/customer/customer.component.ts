@@ -13,8 +13,12 @@ export class CustomerComponent implements OnInit {
   p: any;
   customers!: Customer[];
   customersAccept!: Customer[];
+  admin!: string;
   constructor(private adminService: AdminService,
-              private router: Router) { }
+              private router: Router) {
+    // @ts-ignore
+    this.admin = localStorage.getItem("admin");
+  }
 
   ngOnInit(): void {
     this.showActiveCustomer()

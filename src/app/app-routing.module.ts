@@ -8,6 +8,7 @@ import {LoginComponent} from "./auth/login/login.component";
 import {HomeComponent} from "./merchant/merchanthome/home.component";
 import {BillComponent} from "./merchant/bill/bill.component";
 import {OrderComponent} from "./merchant/order/order.component";
+import {ProfileComponent} from "./merchant/profile/profile.component";
 
 
 const routes: Routes = [
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path:'order',
     component: OrderComponent
+  },
+  {
+    path:'profile',
+    component: ProfileComponent
   }
 ];
 

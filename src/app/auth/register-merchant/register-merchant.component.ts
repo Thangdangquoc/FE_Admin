@@ -99,6 +99,7 @@ export class RegisterMerchantComponent implements OnInit {
       avatar: this.url,
       phoneNumber: this.registerMerchantForm.value.phoneNumber,
       address: this.registerMerchantForm.value.address,
+      description: this.registerMerchantForm.value.description,
       imageBanner:this.urlBanner,
       appUser: {
 

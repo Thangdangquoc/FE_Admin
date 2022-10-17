@@ -22,10 +22,13 @@ export class MerchantComponent implements OnInit {
   merchantDetailForm!: FormGroup;
   avatar!: string;
   imageBanner!: string;
-  phone!: string
+  phone!: string;
+  admin!: string;
   constructor(private adminService: AdminService,
               private router: Router,
               private merchantService: MerchantService) {
+    // @ts-ignore
+    this.admin = localStorage.getItem("admin");
   }
 
   ngOnInit(): void {

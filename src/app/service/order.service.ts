@@ -69,4 +69,7 @@ export class OrderService {
   findOrderByDate(from: String,to: String): Observable<any>{
     return this.httpClient.get<any>("http://localhost:8080/api/order/find-order-create-at-by-customer/" + from + "/" + to)
   }
+  totalPrice(id: any): Observable<any>{
+    return this.httpClient.get<any>("http://localhost:8080/api/order/find-all-order-paid/"+ id)
+  }
 }

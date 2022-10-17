@@ -6,6 +6,7 @@ import {LoginService} from "../../service/login.service";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import Swal from 'sweetalert2'
+import {MerchantService} from "../../service/merchant.service";
 
 @Component({
   selector: 'app-login',
@@ -13,14 +14,15 @@ import Swal from 'sweetalert2'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  merchant!: any;
   userToken?:UserToken;
   currentId?: number;
   user?: any;
   formLogin!: FormGroup;
   constructor(private loginService: LoginService,
               private router: Router,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              private merchantService: MerchantService) { }
 
   ngOnInit(): void {
     this.formLogin = new FormGroup({
@@ -46,18 +48,25 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("currentId",String(this.currentId));
 
         localStorage.setItem("admin",String(this.user.username));
-        if (this.userToken.roles[0].name == "ROLE_CUSTOMER" ){
+        this.merchantService.detailMerchant(data.id).subscribe((data:any)=>{
+          this.merchant =data;
+          localStorage.setItem("avatarMerchant",this.merchant.avatar);
+          localStorage.setItem("imageBanner",this.merchant.imageBanner);
+          localStorage.setItem("phoneNumber",this.merchant.phoneNumber);
+        })
+        // localStorage.setItem("imageAvatar",String(this.user.username));
+        if (this.userToken.roles[0].name == "CUSTOMER" ){
           this.loginSusess()
           this.router.navigate(["/customer"]);
-          console.log("ROLE_CUSTOMER")
-        }else if (this.userToken.roles[0].name == "ROLE_ADMIN"){
+          console.log("CUSTOMER")
+        }else if (this.userToken.roles[0].name == "ADMIN"){
           this.loginSusess()
           this.router.navigate(["/admin"]);
-          console.log("ROLE_ADMIN")
-        }else if (this.userToken.roles[0].name == "ROLE_MERCHANT"){
+          console.log("ADMIN")
+        }else if (this.userToken.roles[0].name == "MERCHANT"){
           this.loginSusess()
           this.router.navigate(["/order"]);
-          console.log("ROLE_MERCHANT")
+          console.log("MERCHANT")
         }
       } else {
         this.banAcc()
@@ -75,7 +84,7 @@ export class LoginComponent implements OnInit {
 
   loginSusess(){
     Swal.fire({
-      position: 'top-end',
+      position: 'center',
       icon: 'success',
       title: 'Login successfully',
       showConfirmButton: false,

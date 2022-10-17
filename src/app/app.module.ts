@@ -20,6 +20,7 @@ import {BillComponent} from "./merchant/bill/bill.component";
 import {OrderComponent} from "./merchant/order/order.component";
 import {ToastrModule} from "ngx-toastr";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { ProfileComponent } from './merchant/profile/profile.component';
 
 
 
@@ -33,7 +34,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     RegisterMerchantComponent,
     HomeComponent,
     BillComponent,
-    OrderComponent
+    OrderComponent,
+    ProfileComponent
   ],
   imports: [
     ReactiveFormsModule,

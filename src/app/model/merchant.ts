@@ -4,6 +4,7 @@ export class Merchant {
   id: number;
   name: string;
   phoneNumber: string;
+  description: string;
   avatar: string;
   imageBanner: string;
   address: string;
@@ -12,10 +13,11 @@ export class Merchant {
   appUser: AppUser;
 
   // tslint:disable-next-line:max-line-length
-  constructor(id: number, name: string, phoneNumber: string, avatar: string, imageBanner: string, address: string, isAccept: boolean, isActive: boolean, appUser: AppUser) {
+  constructor(id: number, name: string, phoneNumber: string,description: string, avatar: string, imageBanner: string, address: string, isAccept: boolean, isActive: boolean, appUser: AppUser) {
     this.id = id;
     this.name = name;
     this.phoneNumber = phoneNumber;
+    this.description =description;
     this.avatar = avatar;
     this.imageBanner = imageBanner;
     this.address = address;
